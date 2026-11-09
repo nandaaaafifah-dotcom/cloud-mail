@@ -10,8 +10,10 @@ export default {
 
 		const url = new URL(req.url)
 
-		if (url.pathname.startsWith('/api/')) {
-			url.pathname = url.pathname.replace('/api', '')
+		if (url.pathname.startsWith('/api/') || url.pathname.startsWith('/admin/api/')) {
+			if (url.pathname.startsWith('/api/')) {
+				url.pathname = url.pathname.replace('/api', '')
+			}
 			req = new Request(url.toString(), req)
 			return app.fetch(req, env, ctx);
 		}

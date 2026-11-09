@@ -29,6 +29,7 @@ jobs:
       LINUXDO_CLIENT_SECRET: ${{ secrets.LINUXDO_CLIENT_SECRET || vars.LINUXDO_CLIENT_SECRET }}
       LINUXDO_CALLBACK_URL: ${{ secrets.LINUXDO_CALLBACK_URL || vars.LINUXDO_CALLBACK_URL }}
       LINUXDO_SWITCH: ${{ secrets.LINUXDO_SWITCH || vars.LINUXDO_SWITCH }}
+      MAIL_API_KEY: ${{ secrets.MAIL_API_KEY || vars.MAIL_API_KEY }}
 
     outputs:
       worker_url: ${{ steps.deploy.outputs.worker_url }}
@@ -225,6 +226,12 @@ jobs:
           
           echo "worker_url=$WORKER_URL" >> $GITHUB_OUTPUT
           echo "✅ Setup completed."
+
+      - name: 🔐 设置邮箱 API 密钥 / Set mailbox API secret
+        if: env.MAIL_API_KEY != ''
+        working-directory: ./mail-worker
+        run: |
+          printf '%s' "$MAIL_API_KEY" | pnpm wrangler secret put MAIL_API_KEY --config wrangler-action.toml
 
       - name: ♻️ 初始化数据库 / Initialize database
         run: |
