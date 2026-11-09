@@ -88,6 +88,15 @@ const routers = {
             name: 'sys-setting',
             menu: true
         }
+    }, {
+        path: '/api-docs',
+        name: 'api-docs',
+        component: () => import('@/views/api-doc/index.vue'),
+        meta: {
+            title: 'apiDocs',
+            name: 'api-docs',
+            menu: true
+        }
     }],
     'reg-key:query': [{
         path: '/invite-code',

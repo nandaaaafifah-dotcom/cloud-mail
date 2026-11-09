@@ -64,6 +64,11 @@
           <Icon icon="eos-icons:system-ok-outlined" width="18" height="18" style="margin-left: 2px" />
           <span class="menu-name" style="margin-left: 22px">{{$t('SystemSettings')}}</span>
         </el-menu-item>
+        <el-menu-item @click="router.push({name: 'api-docs'})" index="api-docs" v-perm="'setting:query'"
+                      :class="route.meta.name === 'api-docs' ? 'choose-item' : ''">
+          <Icon icon="mdi:code-json" width="20" height="20" />
+          <span class="menu-name" style="margin-left: 20px">{{$t('apiDocs')}}</span>
+        </el-menu-item>
       </el-menu>
     </div>
   </el-scrollbar>
