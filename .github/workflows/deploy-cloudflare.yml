@@ -108,9 +108,10 @@ jobs:
             sed -i '/^linuxdo_client_id = /,/^linuxdo_switch = /d' "$CONFIG_FILE"
           fi
           
-          if [ -z "$CUSTOM_DOMAIN" ]; then
-            sed -i '/\[\[routes\]\]/,/^$/d' "$CONFIG_FILE"
-          fi
+          # The custom domain is already attached to the Worker in Cloudflare.
+          # Do not update Zone Routes during every deploy; that requires the
+          # separate Zone Routes:Edit permission and can fail after upload.
+          sed -i '/\[\[routes\]\]/,/^$/d' "$CONFIG_FILE"
 
           sed -i "s|\${NAME}|${NAME}|g" "$CONFIG_FILE"
           sed -i "s|\${CUSTOM_DOMAIN}|${CUSTOM_DOMAIN}|g" "$CONFIG_FILE"
