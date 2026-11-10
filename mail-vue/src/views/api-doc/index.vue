@@ -58,6 +58,28 @@
         <pre><code>{{ latestResponse }}</code></pre>
         <p class="small-note">{{ $t('apiEmptyResult') }}</p>
       </section>
+
+      <section class="endpoint" aria-labelledby="send-title">
+        <div class="endpoint-heading">
+          <span class="method post">POST</span>
+          <h2 id="send-title">{{ $t('apiSendTitle') }}</h2>
+        </div>
+        <code class="path">{{ origin }}/admin/api/emails/send</code>
+        <p class="description">{{ $t('apiSendDesc') }}</p>
+        <h3>{{ $t('apiParams') }}</h3>
+        <ul class="params">
+          <li><code>to</code><span>{{ $t('apiSendToParam') }}</span></li>
+          <li><code>subject</code><span>{{ $t('apiSendSubjectParam') }}</span></li>
+          <li><code>text</code><span>{{ $t('apiSendTextParam') }}</span></li>
+          <li><code>html</code><span>{{ $t('apiSendHtmlParam') }}</span></li>
+        </ul>
+        <h3>{{ $t('apiRequest') }} · JSON</h3>
+        <pre><code>{{ sendRequest }}</code></pre>
+        <h3>{{ $t('apiRequest') }} · cURL</h3>
+        <pre><code>{{ sendCurl }}</code></pre>
+        <h3>{{ $t('apiSuccess') }}</h3>
+        <pre><code>{{ sendResponse }}</code></pre>
+      </section>
     </main>
   </el-scrollbar>
 </template>
@@ -95,6 +117,25 @@ const latestResponse = `{
     "body": "Your verification code is 839201",
     "verification_code": "839201",
     "code": "839201"
+  }
+}`
+const sendRequest = `{
+  "to": "recipient@example.com",
+  "subject": "Your verification code",
+  "text": "Your verification code is 839201",
+  "html": "<p>Your verification code is <strong>839201</strong></p>"
+}`
+const sendCurl = `curl -X POST "${origin}/admin/api/emails/send" \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: YOUR_MAIL_API_KEY" \
+  -d '{"to":"recipient@example.com","subject":"Your verification code","text":"Your verification code is 839201"}'`
+const sendResponse = `{
+  "status": "success",
+  "data": {
+    "from": "admin@vsvdvv.cc",
+    "to": "recipient@example.com",
+    "emailId": 789,
+    "messageId": "resend-message-id"
   }
 }`
 </script>
